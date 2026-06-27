@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="public/dot_emall.png" alt="Dot.Emall" width="280" />
+
 <h1>Dot.Emall</h1>
 
 <p>Multi-vendor online marketplace — open a store, list products, manage orders, and grow your business online.</p>
