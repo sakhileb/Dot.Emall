@@ -1,84 +1,79 @@
 <div align="center">
 
-<img src="public/dot_emall.png" alt="Dot.Emall" width="280" />
+<img src="docs/logo.svg" alt="Dot.Emall" width="320" />
 
-<h1>Dot.Emall</h1>
+<br /><br />
 
-<p>Multi-vendor online marketplace — open a store, list products, manage orders, and grow your business online.</p>
+**Open a store, list products, manage orders, and grow your business online.**
 
-[![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?style=flat-square&logo=php&logoColor=white)](https://php.net)
-[![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com)
-[![Livewire](https://img.shields.io/badge/Livewire-3.x-4E56A6?style=flat-square)](https://livewire.laravel.com)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://postgresql.org)
-[![Tests](https://img.shields.io/badge/tests-37%20passing-brightgreen?style=flat-square)](tests/)
-[![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
+<br />
+
+![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=flat-square&logo=laravel&logoColor=white) ![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?style=flat-square&logo=php&logoColor=white) ![Livewire](https://img.shields.io/badge/Livewire-3-FB70A9?style=flat-square) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?style=flat-square&logo=postgresql&logoColor=white)
+
+<br /><br />
+
+**Part of the [InfoDot Ecosystem](https://github.com/sakhileb/InfoDot)** &nbsp;·&nbsp; `emall.infodot.app`
 
 </div>
 
 ---
 
-## Overview
+## What is Dot.Emall?
 
-Dot.Emall is the multi-vendor marketplace platform in the Dot ecosystem. Vendors open stores, list products with images and variants, and manage orders — while shoppers browse, add to cart, checkout, and leave reviews — all within a single platform.
+Dot.Emall is the marketplace platform in the InfoDot ecosystem. Multiple vendors operate their own storefronts under a single marketplace roof — each managing their product catalogue, inventory, and fulfilment independently while customers shop across all stores.
 
----
+## Core Features
 
-## Features
+- Multi-vendor storefronts — each vendor manages their own shop
+- Product catalogue with variants, SKUs, and stock tracking
+- Order management — placed, confirmed, shipped, delivered
+- Integrated payment processing via Stripe
+- Vendor payout dashboard with commission tracking
+- Customer reviews and star ratings per product
+- Promotional codes and timed discounts
+- Ecosystem SSO from InfoDot hub
 
-- **Multi-vendor stores** — each vendor gets a branded storefront with their product catalogue
-- **Product catalogue** — images, variants, stock management, and self-referencing categories
-- **Shopping cart** — persistent cart with quantity management and saved items
-- **Order management** — status tracking (pending → processing → shipped → delivered)
-- **Reviews** — star ratings and written reviews with average rating computed per product
-- **Store categories** — nested category tree (self-referencing `parent_id`)
-- **Ecosystem SSO** — authenticate from InfoDot with a single click
+## Domain Models
 
----
-
-## Domain Model
-
-```
-StoreCategory (self-ref parent_id)
-Store         → Products → ProductImages
-                        → Reviews
-              → Orders  → OrderItems → Product
-User          → CartItems → Product
-```
-
----
+- **Store** — vendor storefront with branding
+- **Product** — listing with variants and stock
+- **Order** — customer purchase record
+- **OrderItem** — line item per product
 
 ## Tech Stack
 
 | Layer | Technology |
 |---|---|
-| Framework | Laravel 12 + PHP 8.4 |
-| Frontend | Livewire 3 + Alpine.js + Tailwind CSS |
-| Auth | Jetstream 5 + Sanctum (ecosystem SSO) |
-| Database | PostgreSQL 16 (shared infodot instance) |
-| Payments | Laravel Cashier + Stripe |
-| WebSockets | Laravel Reverb |
-
----
+| Framework | Laravel 12 |
+| Language | PHP 8.4 |
+| Frontend | Livewire 3 · Alpine.js 3 · Tailwind CSS |
+| Database | PostgreSQL 16 (shared across ecosystem) |
+| Realtime | Laravel Reverb |
+| Auth | Laravel Sanctum (InfoDot SSO) |
+| AI | Anthropic Claude (`claude-sonnet-4-6`) |
+| Storage | AWS S3 / Local (Flysystem) |
+| Search | Laravel Scout · Meilisearch |
+| Queue | Redis · Laravel Horizon |
 
 ## Quick Start
 
 ```bash
-git clone https://github.com/sakhileb/Dot.Emall.git && cd Dot.Emall
-composer install && npm install
-cp .env.example .env && php artisan key:generate
-php artisan migrate && npm run dev & php artisan serve
+git clone https://github.com/sakhileb/Dot.Emall.git
+cd Dot.Emall
+cp .env.example .env
+composer install
+npm install && npm run build
+php artisan key:generate
+php artisan migrate
+php artisan serve
 ```
 
-```bash
-bash bin/test.sh   # 37 passing, 0 failed, 7 skipped
-```
+> **Ecosystem SSO:** Set `DB_*` env vars to the shared InfoDot PostgreSQL instance and `APP_URL=https://emall.infodot.app`. Users authenticated through InfoDot gain access automatically via Sanctum handoff tokens.
 
----
+## Ecosystem
 
-## Part of the Dot Ecosystem
+**Dot.Emall** is one of **21 platforms** in the InfoDot ecosystem, connected via shared PostgreSQL and Sanctum SSO. Visit [InfoDot](https://github.com/sakhileb/InfoDot) to explore the full platform map.
 
-Dot.Emall connects to [InfoDot](https://github.com/sakhileb/InfoDot) — the central hub. Log in to InfoDot once and navigate here without re-authenticating via `/auth/ecosystem`.
+## License
 
----
-
-MIT — © SK Digital / BluPin Incorporated
+MIT © [SK Digital / BluPin Incorporated](https://github.com/sakhileb)
